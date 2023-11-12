@@ -395,7 +395,9 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
             ),
           ],
           if (!controller.flags.hideControls)
-            const Center(child: PlayPauseButton()),
+            Center(
+              child: PlayPauseButton(bufferIndicator: widget.bufferIndicator),
+            ),
           if (controller.value.hasError) errorWidget,
         ],
       ),

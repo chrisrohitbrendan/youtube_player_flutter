@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/src/widgets/mute_unmute_button.dart';
 
 import '../enums/thumbnail_quality.dart';
 import '../utils/errors.dart';
@@ -396,7 +397,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
           ],
           if (!controller.flags.hideControls)
             Center(
-              child: PlayPauseButton(bufferIndicator: widget.bufferIndicator),
+              child: MuteUmuteButton(bufferIndicator: widget.bufferIndicator),
             ),
           if (controller.value.hasError) errorWidget,
         ],

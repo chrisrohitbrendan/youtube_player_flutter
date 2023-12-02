@@ -46,7 +46,7 @@ class _MuteUmuteButtonState extends State<MuteUmuteButton>
             },
             child: _mute
                 ? const Icon(
-                    Icons.volume_down_rounded,
+                    Icons.volume_off_rounded,
                     color: Colors.white,
                     size: 60.0,
                   )

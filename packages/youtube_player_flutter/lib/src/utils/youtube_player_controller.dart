@@ -34,6 +34,7 @@ class YoutubePlayerValue {
     this.webViewController,
     this.isDragging = false,
     this.metaData = const YoutubeMetaData(),
+    this.isMuted = false,
   });
 
   /// Returns true when the player is ready to play videos.
@@ -86,6 +87,8 @@ class YoutubePlayerValue {
   /// Returns meta data of the currently loaded/cued video.
   final YoutubeMetaData metaData;
 
+  final bool isMuted;
+
   /// Creates new [YoutubePlayerValue] with assigned parameters and overrides
   /// the old one.
   YoutubePlayerValue copyWith({
@@ -105,6 +108,7 @@ class YoutubePlayerValue {
     InAppWebViewController? webViewController,
     bool? isDragging,
     YoutubeMetaData? metaData,
+    bool? isMuted,
   }) {
     return YoutubePlayerValue(
       isReady: isReady ?? this.isReady,
@@ -122,6 +126,7 @@ class YoutubePlayerValue {
       webViewController: webViewController ?? this.webViewController,
       isDragging: isDragging ?? this.isDragging,
       metaData: metaData ?? this.metaData,
+      isMuted: isMuted ?? this.isMuted,
     );
   }
 
@@ -138,6 +143,7 @@ class YoutubePlayerValue {
         'playerState: $playerState, '
         'playbackRate: $playbackRate, '
         'playbackQuality: $playbackQuality, '
+        'isMuted: $isMuted, '
         'errorCode: $errorCode)';
   }
 }
@@ -231,10 +237,16 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   }
 
   /// Mutes the player.
-  void mute() => _callMethod('mute()');
+  void mute() {
+    _callMethod('mute()');
+    updateValue(value.copyWith(isMuted: true));
+  }
 
   /// Un mutes the player.
-  void unMute() => _callMethod('unMute()');
+  void unMute() {
+    _callMethod('unMute()');
+    updateValue(value.copyWith(isMuted: false));
+  }
 
   /// Sets the volume of player.
   /// Max = 100 , Min = 0

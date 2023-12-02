@@ -22,7 +22,21 @@ class _MuteUmuteButtonState extends State<MuteUmuteButton>
     final controller = YoutubePlayerController.of(context);
     if (controller != null) {
       _controller = controller;
+      _controller.addListener(_controllerListener);
     }
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_controllerListener);
+    super.dispose();
+  }
+
+  _controllerListener() {
+    if (_controller.value.isMuted == _mute) return;
+    setState(() {
+      _mute = _controller.value.isMuted;
+    });
   }
 
   @override
@@ -40,9 +54,6 @@ class _MuteUmuteButtonState extends State<MuteUmuteButton>
               } else {
                 _controller.mute();
               }
-              setState(() {
-                _mute = !_mute;
-              });
             },
             child: _mute
                 ? const Icon(

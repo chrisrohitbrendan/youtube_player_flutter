@@ -17,14 +17,12 @@ class _MuteUmuteButtonState extends State<MuteUmuteButton>
   bool _mute = false;
 
   @override
-  void initState() {
-    super.initState();
-    _controller = YoutubePlayerController.of(context)!;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final controller = YoutubePlayerController.of(context);
+    if (controller != null) {
+      _controller = controller;
+    }
   }
 
   @override

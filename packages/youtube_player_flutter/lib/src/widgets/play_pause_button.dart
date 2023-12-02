@@ -30,7 +30,6 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
     with TickerProviderStateMixin {
   late YoutubePlayerController _controller;
   late AnimationController _animController;
-  bool _mute = false;
 
   @override
   void initState() {
@@ -80,16 +79,6 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
     }
   }
 
-  void unMute() {
-    _mute = false;
-    _controller.unMute();
-  }
-
-  void mute() {
-    _mute = true;
-    _controller.mute();
-  }
-
   @override
   Widget build(BuildContext context) {
     final value = _controller.value;
@@ -106,11 +95,9 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(50.0),
-            onLongPress: () => _controller.pause(),
-            onTapUp: (details) {
-              if (!_controller.value.isPlaying) _controller.play();
-            },
-            onTap: () => _mute ? unMute() : mute(),
+            onTap: () => _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play(),
             child: AnimatedIcon(
               icon: AnimatedIcons.play_pause,
               progress: _animController.view,
